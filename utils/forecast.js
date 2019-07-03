@@ -5,7 +5,7 @@ const WEATHER_URL = 'https://api.darksky.net/forecast/2e64da1cc0ec196717545eb976
 const forecast = (longitude, latitude, callback) => {
     let url = WEATHER_URL.replace('LONGITUDE', longitude).replace('LATITUDE', latitude);
 
-    request({ url: url, json: true }, (error, response) => {
+    request({ url, json: true }, (error, response) => {
         if(error) {
             callback('Weather Service is not available right now', undefined);
         } else if(response.body.error) {

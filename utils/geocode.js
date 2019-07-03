@@ -4,7 +4,7 @@ const GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/ADDRESS.j
 
 const geocode = (address, callback) => {
     let url = GEOCODE_URL.replace('ADDRESS', encodeURIComponent(address))
-    request({ url: url, json: true }, (error, response) => {
+    request({ url, json: true }, (error, response) => {
         if(error) {
             callback('Unable to connect with location services.', undefined);
         } else if(response.body.features.length === 0) {
