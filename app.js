@@ -1,15 +1,23 @@
-const request = require('request');
-
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
+const address = process.argv[2];
 
-// geocode('Sultanpur UP', (error, data) => {
-//     console.log('Error', error);
-//     console.log('Data', data);
-// });
-
-forecast(82.11667, 26.45, (error, data) => {
-    console.log('Error', error);
-    console.log('Data', data);
-});
+if(address) {
+    geocode(address, (error, geoData) => {
+        if(error) {
+            return console.log(error);
+        }
+    
+        forecast(geoData.longitude, geoData.latitude, (error, forecastData) => {
+            if(error) {
+                return console.log(error)
+            }
+    
+            console.log(geoData.location);
+            console.log(forecastData);
+        });
+    });
+} else {
+    console.log('Please Provide with a Location')
+}

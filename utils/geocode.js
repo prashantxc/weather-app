@@ -7,7 +7,7 @@ const geocode = (address, callback) => {
     request({ url: url, json: true }, (error, response) => {
         if(error) {
             callback('Unable to connect with location services.', undefined);
-        } else if(!response.body.features) {
+        } else if(response.body.features.length === 0) {
             callback('Are you searching for a different planet? Unable to find location.', undefined);
         } else {
             callback(undefined, {

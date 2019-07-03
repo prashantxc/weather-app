@@ -1,8 +1,8 @@
 const request = require('request');
 
-const WEATHER_URL = 'https://api.darksky.net/forecast/2e64da1cc0ec196717545eb97658cf8d/LONGITUDE,LATITUDE';
+const WEATHER_URL = 'https://api.darksky.net/forecast/2e64da1cc0ec196717545eb97658cf8d/LATITUDE,LONGITUDE';
 
-const forecast = (latitude, longitude, callback) => {
+const forecast = (longitude, latitude, callback) => {
     let url = WEATHER_URL.replace('LONGITUDE', longitude).replace('LATITUDE', latitude);
 
     request({ url: url, json: true }, (error, response) => {
