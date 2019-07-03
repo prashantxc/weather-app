@@ -1,8 +1,8 @@
 const request = require('request');
 
-// Keys
+const geocode = require('./utils/geocode');
+
 const WEATHER_URL = 'https://api.darksky.net/forecast/2e64da1cc0ec196717545eb97658cf8d/37.8267,-122.4233';
-const GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/ADDRESS.json?access_token=pk.eyJ1IjoicHJhc2hhbnR4YyIsImEiOiJjanhsaGNuNzcwNjYwM3JtZzUwNzN6OWNoIn0.I-skCxjmKCtglI72PSHJcg&limit=1';
 
 // Weather
 // request({ url: WEATHER_URL, json: true }, (error, response) => {
@@ -15,37 +15,6 @@ const GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/ADDRESS.j
 //     }
 // });
 
-//Geocoding
-// request({ url: GEOCODE_URL, json: true }, (error, response) => {
-//     if(error) {
-//         console.log('Unable to connect with location service.');
-//     } else if(response.body.features.length === 0) {
-//         console.log('Are you searching for a different planet? Unable to find location.');
-//     } else {
-//         const latitude = response.body.features[0].center[1];
-//         const longitude = response.body.features[0].center[0];
-//         console.log(latitude, longitude);
-//     }
-    
-// });
-
-
-const geocode = (address, callback) => {
-    let url = GEOCODE_URL.replace('ADDRESS', encodeURIComponent(address))
-    request({ url: url, json: true }, (error, response) => {
-        if(error) {
-            callback('Unable to connect with location services.', undefined);
-        } else if(!response.body.features) {
-            callback('Are you searching for a different planet? Unable to find location.', undefined);
-        } else {
-            callback(undefined, {
-                latitude: response.body.features[0].center[1],
-                longitude: response.body.features[0].center[0],
-                location: response.body.features[0].place_name
-            });
-        }
-    })
-}
 
 geocode('Sultanpur UP', (error, data) => {
     console.log('Error', error);
